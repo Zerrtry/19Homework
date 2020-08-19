@@ -15,10 +15,12 @@ class ResultContainer extends Component {
   };
 
   // When this component mounts, search the API for employees data
+  allEmpl = []
 
   componentDidMount() {
     API.search()
       .then(res => {
+        
         console.log(res)
         this.setState({
             result: res.data.data.map((e, i) => ({
@@ -27,8 +29,9 @@ class ResultContainer extends Component {
               employee_age: e.employee_age,
               key: i
             }))
+          })
+          this.allEmpl = this.state.result;
         })
-      })
       .catch(err => console.log(err));
   }
 
@@ -36,10 +39,18 @@ class ResultContainer extends Component {
     console.log("***in Filter*******");
     console.log(searchkey);
     console.log(this.state.result);
-    const filterResult = this.state.result.filter(person => person.employee_name === searchkey)
-    this.setState({
-      result:filterResult
-    })
+    console.log("filter", this.allEmpl)
+      if (!searchkey){
+        this.setState({
+          result:this.allEmpl
+        })
+      } else {
+        const filterResult = this.allEmpl.filter(person => person.employee_name === searchkey)
+        console.log("filterResult",filterResult);
+        this.setState({
+          result:filterResult
+        })
+    }
   }
 
   // When the form is submitted, search the API for `this.state.search`
