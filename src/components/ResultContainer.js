@@ -105,21 +105,18 @@ class ResultContainer extends Component {
         let ageArray = [];
         if (!minAge || !maxAge){
           console.log("no age range")
-          for (const employee of employees) {
-                  ageArray.push(employee)
-          }
-//           this.setState({
-//             result:ageArray
-//           })
+          for (const employee of employees) { 
+            ageArray.push(employee)
+        }
           console.log("this.state.result",this.state.result)
         } else {
-           for (const employee of employees) {
+          for (const employee of employees) {
               if (employee.employee_age >= minAge && employee.employee_age <= maxAge) {
                   ageArray.push(employee)
               }
+          }
         }
         console.log(ageArray)
-       
         this.setState({
             result: ageArray 
           })
